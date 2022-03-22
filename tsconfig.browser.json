@@ -1,0 +1,22 @@
+{
+    "include": ["src/**/*.ts", "src/**/*.json"],
+    "compilerOptions": {
+      "outDir": "./dist.browser",
+      "target": "es2018",
+      "lib": ["dom", "es2018"],
+      "sourceMap": true,
+      "declaration": true,
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "resolveJsonModule": true,
+      "downlevelIteration": true,
+      "strict": true,
+    //   "target": "ES2017",
+    //   "lib": ["es2018"]
+    }
+  }
+  

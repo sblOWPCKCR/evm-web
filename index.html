@@ -1,0 +1,67 @@
+<html>
+
+<body>
+    <h1>pow(x, n)</h1>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div>
+        <input type="range" value="2" min="1" max="8" oninput="render(this.value)">
+    </div>
+    <div>
+        <span>n=</span><span id="exp_txt"></span>
+    </div>
+    <div>
+        <canvas id="chart"></canvas>
+    </div>
+    <script type="module">
+        import * as wtf from "./dist.browser/bundle.js";
+
+        await WTF.deploy();
+
+        const BigNumber = WTF.BigNumber;
+
+        const WAD = BigNumber.from(10).pow(18);
+
+        async function render(exp) {
+            if (window.chart && window.chart.destroy) {
+                window.chart.destroy();
+            }
+            const points = [];
+            const labels = [];
+            for (let i = 0; i < 90; ++i) {
+                points.push((await WTF.pow(BigNumber.from(i).mul(WAD), exp)).div(WAD).toNumber());
+                labels.push(i);
+            }
+
+
+            const data = {
+                labels,
+                datasets: [{
+                    label: `pow(x, ${exp})`,
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: points,
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {}
+            };
+            window.chart = new Chart(
+                document.getElementById('chart'),
+                config
+            );
+            document.getElementById("exp_txt").innerHTML = exp;
+        }
+        window.render = render;
+        render(1);
+        // const x = await render(2);
+        // x.destroy();
+        // await render(3);
+    </script>
+
+</body>
+
+</html>
